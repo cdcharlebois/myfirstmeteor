@@ -3,11 +3,27 @@
 </head>
 
 <body>
-  {{> hello}}
+	<div class="container">
+  		<div id="categories-container">
+  			{{> categories}}
+  		</div>
+  	</div>
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<template name="categories">
+	<h2 class="title">my stuff</h2>
+	<div id="categories" class="btn-group">
+		{{#if new_cat}}
+			<div class="category">
+				<span class="label label-info">Add new Category:</span> <input type="text" id="add-category" value="">
+			</div>
+		{{else}}
+			<div class="category btn btn-primary" id="btnNewCat" style="font-weight:bold">&plus;</div>
+		{{/if}}
+		{{#each lists}}
+		<div class="category btn btn-primary">
+			{{Category}}
+		</div>
+		{{/each}}
+	</div>
 </template>
