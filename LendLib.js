@@ -1,6 +1,9 @@
 lists = new Meteor.Collection("Lists");
 
+
 if (Meteor.isClient) {
+  //declare the adding_category flag
+  Session.set('adding_category', false);
 /*  Template.hello.greeting = function () {
     return "my list.";
   };
@@ -16,8 +19,7 @@ if (Meteor.isClient) {
   Template.categories.lists = function() {
     return lists.find({}, {sort:{Category:1}});
   };
-  //declare the adding_category flag
-  Session.set('adding_category', false);
+  
   Template.categories.new_cat = function() {
     return Session.equals('adding_category', true);
   };
@@ -48,8 +50,33 @@ if (Meteor.isClient) {
   function focusText(i) {
     i.focus();
     i.select();
-  }
+  };
   ////////////////////////////////////
+
+  /***********************************************************************
+      Chapter 4 
+  ***********************************************************************/
+  Template.list.items = function() {
+    if(Session.equals('current_list', null))
+      return null;
+    else
+    {
+      var cats = lists.findOne({_id:Session.get('current_list')});
+      if ( cats && cats.items )
+      {
+        for (var i = 0; i < cats.items.length; i++) {
+          var d = cats.items[i];
+          d.Lendee = d.LentTo ? d.LentTo : "free";
+          d.LendClass = d.LentTo ? "label-danget" : "label-success";
+        };
+        return cats.items;
+      }
+    }
+  };
+
+  /***********************************************************************
+      /Chapter 4
+  ***********************************************************************/
 }
 
 if (Meteor.isServer) {
