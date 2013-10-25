@@ -27,7 +27,7 @@
 			<div class="category btn btn-primary" id="btnNewCat" style="font-weight:bold">&plus;</div>
 		{{/if}}
 		{{#each lists}}
-		<div class="category btn btn-primary">
+		<div class="category btn {{list_status}}" id="{{_id}}">
 			{{Category}}
 		</div>
 		{{/each}}
