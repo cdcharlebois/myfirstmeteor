@@ -9,16 +9,18 @@ var isAdminUser = function(userId) {
 
 lists.allow({
   insert: function(userId, doc) {
-    console.log("processing insert userId = "+userId + ", doc.owner = "+doc.owner);
+    //console.log("processing insert userId = "+userId + ", doc.owner = "+doc.owner);
     return (isAdminUser(userId) || (userId && doc.owner === userId));
   },
   update: function(userId, docs, fields, modifier) {
-    console.log("updating...");
-    console.log("userId = " + userId);
+    // console.log("updating...");
+    // console.log("userId = " + userId);
+    // console.log("docs.owner = " + docs.owner);
     return isAdminUser(userId) ||
     _.all(docs, function(doc) {
-      console.log("doc.owner = " + doc.owner);
-      return doc.owner === userId;
+      // console.log("doc.owner = " + doc.owner);
+      // console.log("doc = " + doc);
+      return docs.owner === userId;
     });
   },
   remove: function(userId, docs) {
